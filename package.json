@@ -1,0 +1,24 @@
+{
+  "name": "writepad-2",
+  "version": "0.1.0",
+  "private": true,
+  "dependencies": {
+    "eslint": "^4.3.0",
+    "react": "^15.6.1",
+    "react-dom": "^15.6.1",
+    "slate": "^0.21.0"
+  },
+  "devDependencies": {
+    "eslint-config-airbnb": "^15.1.0",
+    "eslint-plugin-import": "^2.7.0",
+    "eslint-plugin-jsx-a11y": "^5.1.1",
+    "eslint-plugin-react": "^7.1.0",
+    "react-scripts": "^1.0.10"
+  },
+  "scripts": {
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "test": "react-scripts test --env=jsdom",
+    "eject": "react-scripts eject"
+  }
+}
