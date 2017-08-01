@@ -2,7 +2,7 @@
 import './App.css';
 import keycode from 'keycode';
 import React from 'react';
-import { Container, Card } from 'semantic-ui-react'
+import { Container, Segment } from 'semantic-ui-react'
 import { Editor, Raw } from 'slate';
 
 // Update the initial content to be pulled from Local Storage if it exists.
@@ -55,7 +55,7 @@ class App extends React.Component {
     state: Raw.deserialize(initialContent, {terse: true}),
     schema: {
       nodes: {
-        paragraph: props => <Card fluid {...props.attributes}><Card.Content>{props.children}</Card.Content></Card>
+        paragraph: props => <Segment {...props.attributes}>{props.children}</Segment>
       },
       marks: {
         bold: props => <strong>{props.children}</strong>,
