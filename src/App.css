@@ -65,3 +65,17 @@ body{
   background: #3EB8FF;
   color: #fff;
 }
+
+.context-menu-item-layout {
+  margin: 0;
+  display: block;
+  height: 60px;
+  padding: 20px 25px;
+  background: #444;
+  transition-duration: 0.25s;
+}
+
+.context-menu-item-layout:hover {
+  background: #3EB8FF;
+  color: #fff;
+}
