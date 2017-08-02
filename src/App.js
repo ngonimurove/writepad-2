@@ -2,7 +2,7 @@
 import './App.css';
 import keycode from 'keycode';
 import React from 'react';
-import { Container, Segment } from 'semantic-ui-react'
+import { Container, Segment, Header, Sidebar, Menu, Icon, List } from 'semantic-ui-react'
 import { Editor, Raw } from 'slate';
 
 // Update the initial content to be pulled from Local Storage if it exists.
@@ -48,14 +48,17 @@ const plugins = [
 ]
 
 // Define our app...
-class App extends React.Component {
+class EditorContainer extends React.Component {
 
   // Set the initial state when the app is first constructed.
   state = {
     state: Raw.deserialize(initialContent, {terse: true}),
     schema: {
       nodes: {
-        paragraph: props => <Segment {...props.attributes}>{props.children}</Segment>
+        paragraph: props => <Segment {...props.attributes}>{props.children}</Segment>,
+        section: props => <Segment {...props.attributes}>{props.children}</Segment>, // A section always has a heading at the top
+        header: props => <Header as='h3' block {...props.attributes}>{props.children}</Header>,
+        group: props => <Segment {...props.attributes}>{props.children}</Segment>,
       },
       marks: {
         bold: props => <strong>{props.children}</strong>,
@@ -64,7 +67,8 @@ class App extends React.Component {
         strikethrough: props => <del>{props.children}</del>,
         underline: props => <u>{props.children}</u>,
       }
-    }
+    },
+    readOnly: false
   }
 
   // On change, update the app's React state with the new editor state.
@@ -81,17 +85,71 @@ class App extends React.Component {
   // Render the editor.
   render = () => {
     return (
-      <Container fluid
-        className="notepad"
+      <Editor
+        readOnly={this.state.readOnly}
+        plugins={plugins}
+        schema={this.state.schema}
+        state={this.state.state}
+        onChange={this.onChange}
+        onDocumentChange={this.onDocumentChange}
+        onKeyDown={this.onKeyDown}
+        className='editor'
+      />
+    )
+  }
+
+}
+
+class App extends React.Component {
+
+  state = {
+    sidebar: {
+      isVisible: true
+    }
+  }
+
+  toggleVisibility = () => this.setState({ sidebar: { isVisible: !this.state.sidebar.isVisible }})
+
+  render = () => {
+    const { isVisible } = this.state.sidebar
+    
+    const itemStyle = {
+      padding: 0,
+    }
+
+    return (
+      <Container
+        fluid
+        className="App"
       >
-        <Editor
-          plugins={plugins}
-          schema={this.state.schema}
-          state={this.state.state}
-          onChange={this.onChange}
-          onDocumentChange={this.onDocumentChange}
-          onKeyDown={this.onKeyDown}
-        />
+        <Sidebar 
+          as={Menu}
+          animation='overlay' 
+          direction='top' 
+          visible={isVisible} 
+          borderless
+          color='blue'
+        >
+          <Menu.Item name='home'>
+            <Icon name='write' />
+            Writepad 2
+          </Menu.Item>
+        </Sidebar>
+        <div style={{ position: 'fixed', top: 60, left: 0}} id='structureMenu'>
+          <List className='context-menu'>
+            <List.Item style={itemStyle} disabled={true}><div className='context-menu-item'><Icon name="arrow up" /></div></List.Item>
+            <List.Item style={itemStyle} disabled={false}><div className='context-menu-item'><Icon name="arrow down" /></div></List.Item>
+            <List.Item style={itemStyle} disabled={false}><div className='context-menu-item'><Icon name="hide" /></div></List.Item>
+            <List.Item style={itemStyle} disabled={false}><div className='context-menu-item'><Icon name="lock" /></div></List.Item>
+            <List.Item style={itemStyle} disabled={false}><div className='context-menu-item'><Icon name="object group" /></div></List.Item>
+          </List>
+        </div>
+        <EditorContainer />
+        <div style={{ position: 'fixed', top: 60, right: 0}} id='ContentMenu'>
+          <List className='context-menu'>
+            <List.Item style={itemStyle} disabled={false}><div className='context-menu-item'><Icon name="history" /></div></List.Item>
+          </List>
+        </div>
       </Container>
     )
   }
