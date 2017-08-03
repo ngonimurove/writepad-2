@@ -37,7 +37,7 @@ body{
 }
 
 .editor {
-  padding: 60px 100px;
+  padding: 80px 100px;
 
 }
 
@@ -62,7 +62,8 @@ body{
 }
 
 .context-menu-item:hover {
-  background: #3EB8FF;
+  /* background: #3EB8FF; */
+  background: #0276FD;
   color: #fff;
 }
 
@@ -76,6 +77,7 @@ body{
 }
 
 .context-menu-item-layout:hover {
-  background: #3EB8FF;
+  /* background: #3EB8FF; */
+  background: #0276FD;
   color: #fff;
 }

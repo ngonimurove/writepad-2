@@ -139,13 +139,14 @@ class App extends React.Component {
           visible={isVisible} 
           borderless
           inverted
+          style={{background: '#444', color: '#fff', padding: '5px'}}
         >
           <Menu.Item name='home'>
             <Icon name='write' />
             Writepad 2
           </Menu.Item>
         </Sidebar>
-        <div style={{ position: 'fixed', top: 60, left: 0}} id='structureMenu'>
+        <div style={{ position: 'fixed', top: 80, left: 0}} id='structureMenu'>
           <List className='context-menu'>
             <Popup
               trigger={<List.Item style={itemStyle} disabled={false}><div className='context-menu-item'><Icon name="arrow up" /></div></List.Item>}
@@ -222,7 +223,7 @@ class App extends React.Component {
           </List>
         </div>
         <EditorContainer />
-        <div style={{ position: 'fixed', top: 60, right: 0}} id='ContentMenu'>
+        <div style={{ position: 'fixed', top: 80, right: 0}} id='ContentMenu'>
           <List className='context-menu'>
             <Popup
               trigger={<List.Item style={itemStyle} disabled={false}><div className='context-menu-item'><Icon name="checkmark box" /></div></List.Item>}
